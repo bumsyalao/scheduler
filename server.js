@@ -1,21 +1,46 @@
-require("rootpath")();
+require("dotenv").config();
 const express = require("express");
-const app = express();
 const cors = require("cors");
+const app = express();
+var corsOptions = {
+  origin: "http://localhost:8081"
+};
 
-const errorHandler = require("_middleware/error-handler");
+//create roles for users
+const db = require("./app/models");
+const Role = db.role;
+db.sequelize.sync({ force: true }).then(() => {
+  console.log('Drop and Resync Db');
+  initial();
+});
 
+function initial() {
+  Role.create({
+    id: 1,
+    name: "staffUser"
+  });
+
+  Role.create({
+    id: 2,
+    name: "admin"
+  });
+}
+app.use(cors(corsOptions));
+// parse requests of content-type - application/json
 app.use(express.json());
+// parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+// simple route
+app.get("/", (req, res) => {
+  res.json({ message: "Welcome to scheduler application." });
+});
 
-// api routes
-app.use("/users", require("./schedule/users.controller"));
+// routes
+require('./app/routes/auth.routes')(app);
+require('./app/routes/user.routes')(app);
 
-// global error handler
-app.use(errorHandler);
-
-// start server
-const port =
-  process.env.NODE_ENV === "production" ? process.env.PORT || 80 : 4000;
-app.listen(port, () => console.log("Server listening on port " + port));
+// set port, listen for requests
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}.`);
+});
