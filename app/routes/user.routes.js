@@ -8,14 +8,14 @@ module.exports = function (app) {
         );
         next();
     });
-    app.get("/user/all", controller.allAccess);
+    app.get("/api/user/all", controller.allAccess);
     app.get(
-        "/user/staff",
+        "/api/user/staff",
         [authJwt.verifyToken],
         controller.staffUser
     );
     app.get(
-        "/user/admin",
+        "/api/user/admin",
         [authJwt.verifyToken, authJwt.isAdmin],
         controller.adminUser
     );
