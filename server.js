@@ -8,6 +8,7 @@ var corsOptions = {
 
 //create roles for users
 const db = require("./app/models");
+
 const Role = db.role;
 db.sequelize.sync({ force: true }).then(() => {
   console.log('Drop and Resync Db');
@@ -25,6 +26,7 @@ function initial() {
     name: "admin"
   });
 }
+
 app.use(cors(corsOptions));
 // parse requests of content-type - application/json
 app.use(express.json());
@@ -40,7 +42,8 @@ require('./app/routes/auth.routes')(app);
 require('./app/routes/user.routes')(app);
 
 // set port, listen for requests
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.NODE_DOCKER_PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
+
