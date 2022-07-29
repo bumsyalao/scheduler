@@ -36,10 +36,10 @@ This application was developed using NodeJs with Express for routing. MySql was 
 - Mysql (https://www.mysql.com/)
 - Docker (https://www.docker.com/)
 
-### Limitations
+### Limitations 🚪
 + Users cannot craete bulk schedules.
 
-### Later To-Do
+### To-Do ✔️
 + Add test cases
 + Add API documentation
 
