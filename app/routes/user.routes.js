@@ -8,17 +8,22 @@ module.exports = function (app) {
         );
         next();
     });
-    app.get("/api/users", controller.allAccess);
-    // app.get(
-    //     "/api/staff",
-    //     [authJwt.verifyToken],
-    //     controller.staffUser
-    // );
-    // app.get(
-    //     "/api/admin",
-    //     [authJwt.verifyToken, authJwt.isAdmin],
-    //     controller.adminUser
-    // );
 
+    app.get(
+        "/api/staff/:id",
+        [authJwt.verifyToken],
+        controller.getStaffUser
+    );
+    app.put(
+        "/api/admin/:userId",
+        [authJwt.verifyToken, authJwt.isAdmin],
+        controller.updateUser
+    );
+
+    app.delete(
+        "/api/admin/:userId",
+        [authJwt.verifyToken, authJwt.isAdmin],
+        controller.deleteUser
+    );
 };
 

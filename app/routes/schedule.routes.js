@@ -6,4 +6,15 @@ module.exports = function (app) {
         [authJwt.verifyToken, authJwt.isAdmin],
         controller.createSchedule
     );
+    app.put(
+        "/api/admin/schedule/:id",
+        [authJwt.verifyToken, authJwt.isAdmin],
+        controller.updateSchedule
+    );
+    app.delete(
+        "/api/admin/schedule/:id",
+        [authJwt.verifyToken, authJwt.isAdmin],
+        controller.deleteScheule
+    );
 };
+
