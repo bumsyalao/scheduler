@@ -10,7 +10,7 @@ module.exports = function (app) {
     });
 
     app.get(
-        "/api/staff/:id",
+        "/api/staff/:id/:startDate",
         [authJwt.verifyToken],
         controller.getStaffUser
     );
