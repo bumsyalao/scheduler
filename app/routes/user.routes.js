@@ -8,16 +8,17 @@ module.exports = function (app) {
         );
         next();
     });
-    app.get("/api/user/all", controller.allAccess);
-    app.get(
-        "/api/user/staff",
-        [authJwt.verifyToken],
-        controller.staffUser
-    );
-    app.get(
-        "/api/user/admin",
-        [authJwt.verifyToken, authJwt.isAdmin],
-        controller.adminUser
-    );
+    app.get("/api/users", controller.allAccess);
+    // app.get(
+    //     "/api/staff",
+    //     [authJwt.verifyToken],
+    //     controller.staffUser
+    // );
+    // app.get(
+    //     "/api/admin",
+    //     [authJwt.verifyToken, authJwt.isAdmin],
+    //     controller.adminUser
+    // );
+
 };
 

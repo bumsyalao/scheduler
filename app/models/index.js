@@ -33,17 +33,12 @@ db.user.belongsToMany(db.role, {
     otherKey: "roleId"
 });
 
-db.user.hasMany(db.schedule, {
-    through: "user_schedule",
-    foreignKey: "userId",
-    otherKey: "scheduleId"
-});
 
+db.user.hasMany(db.schedule, { as: "schedule" });
 db.schedule.belongsTo(db.user, {
-    through: "user_schedule",
-    primaryKey: "userId",
+    foreignKey: "userId",
+    as: "users_schedule",
 });
-
 
 
 db.ROLES = ["staffUser", "admin"];
